@@ -36,7 +36,7 @@ When the user replies `Manual` or `Auto`, continue. If they reply with anything 
 
      1. Build the `md-reader` app ([build.sh](https://github.com/teajuw/md-reader/blob/main/handler/build.sh))
      2. Pin this session
-     3. Open the setup page
+     3. Say what's left
      ```
 
    - `background`: `This session is the md-reader viewer. It finishes setup, then stays idle and shows Markdown files in the Files pane.`
