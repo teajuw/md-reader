@@ -10,7 +10,7 @@ First run `[ -d ~/Applications/md-reader.app ] && cat ~/.claude/md-reader/reader
 
 Next, call `mcp__ccd_turn__wrap_up` and end your turn. Do nothing more until the user replies.
 
-- `recap`: `md-reader needs its own session in ~/md-reader.`
+- `recap`: `md-reader needs its own session in ~/.claude/md-reader.`
 - `ask`: `Set up md-reader?`
 - `actions`: `[{"label": "Manual"}, {"label": "Auto"}]`
 - `blocked`: `true`
@@ -21,10 +21,10 @@ If that tool isn't available, ask the same question with `AskUserQuestion`, with
 
 When the user replies `Manual` or `Auto`, continue. If they reply with anything else, stop and do nothing.
 
-1. Run `mkdir -p ~/md-reader`, then call `start_session` with:
+1. Run `mkdir -p ~/.claude/md-reader`, then call `start_session` with:
    - `initiation`: `user_asked`
    - `title` and `name`: `md-reader`
-   - `cwd`: `~/md-reader`
+   - `cwd`: `~/.claude/md-reader`
    - `use_worktree`: `false`
    - `model`: `claude-haiku-5-5`
    - `effort`: `low`

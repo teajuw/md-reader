@@ -10,7 +10,7 @@ Show the user these steps:
 
 1. Unpin and archive the `md-reader` session. You can restore it from Archived.
 2. Delete `~/Applications/md-reader.app`.
-3. Delete `~/md-reader/`, your history, and `~/.claude/md-reader/`, md-reader's saved state.
+3. Delete `~/.claude/md-reader/`, which holds your history and md-reader's saved state.
 
 Your history holds links, so your Markdown files aren't touched.
 
@@ -29,7 +29,7 @@ If they choose `Uninstall`:
 
 1. Run `cat ~/.claude/md-reader/reader` to get the session ID. If there isn't one, skip step 2.
 2. Call `set_pinned` for that session with `pinned: false`, then call `archive_session` for it. If `archive_session` is refused, keep going and tell the user to close the `md-reader` pane and archive it from the sidebar.
-3. Run `rm -rf "$HOME/Applications/md-reader.app" "$HOME/md-reader" "$HOME/.claude/md-reader"`.
+3. Run `rm -rf "$HOME/Applications/md-reader.app" "$HOME/.claude/md-reader"`.
 4. Tell the user to finish with these steps:
    - In Finder, choose Get Info on a `.md` file, pick another app under Open With, and click Change All.
    - Run `/plugin uninstall md-reader@md-reader`.
