@@ -1,0 +1,5 @@
+{
+  "name": "md-reader",
+  "owner": { "name": "teajuw" },
+  "plugins": [{ "name": "md-reader", "source": "./" }]
+}

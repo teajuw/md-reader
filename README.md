@@ -1,0 +1,35 @@
+# md-reader
+
+Double-click a Markdown file. Read it in Claude Desktop. No tokens.
+
+If Claude Desktop is where you work, why open a separate app to read Markdown? md-reader is a preview of what a native Markdown viewer could look like, with as little clunk as I could get it down to.
+
+## Install
+
+```text
+/plugin install md-reader --marketplace teajuw/md-reader
+```
+
+Then run this in a Code session:
+
+```text
+/md-reader:start
+```
+
+Choose **Manual** or **Auto**, and follow the page it opens.
+
+## Use it
+
+Double-click any Markdown file in your home folder, or run `/read notes.md`.
+
+Opening files never uses tokens. It's plain code, with no model involved. Setup uses one short Haiku turn.
+
+## Good to know
+
+- It renders with Claude Desktop's own Files pane, by design. There's no viewer here to maintain, so app improvements come for free.
+- Setup compiles a small AppleScript app, `md-reader.app`, into `~/Applications`. You set it as your `.md` default, and all it does is hand the file's path to Claude Desktop. The source is in `handler/`.
+- It uses its own session in your home folder. Close it whenever you like: opening a file brings it back in your main pane. Keep it in split view to read beside your work. Don't chat in it, because it can reach your whole home folder.
+- macOS only.
+- It relies on app behavior that isn't a public API, so an update could break it.
+
+To remove it, run `/md-reader:uninstall`.
