@@ -21,14 +21,8 @@ plutil -replace CFBundleDocumentTypes -json '[{
 	"CFBundleTypeExtensions": ["md", "markdown"]
 }]' "$plist"
 
-# The icon ships as a PNG and becomes an icns here.
-iconset=$(mktemp -d)/icon.iconset
-mkdir -p "$iconset"
-for size in 16 32 128 256 512; do
-	sips -z "$size" "$size" "$here/icon.png" --out "$iconset/icon_${size}x${size}.png" >/dev/null
-	sips -z $((size * 2)) $((size * 2)) "$here/icon.png" --out "$iconset/icon_${size}x${size}@2x.png" >/dev/null
-done
-iconutil -c icns "$iconset" -o "$app/Contents/Resources/droplet.icns"
+# The icon ships as per-size PNGs and becomes an icns here.
+iconutil -c icns "$here/icon.iconset" -o "$app/Contents/Resources/droplet.icns"
 rm -f "$app/Contents/Resources/Assets.car"
 plutil -remove CFBundleIconName "$plist"
 
