@@ -31,6 +31,7 @@ Opening files never uses tokens. It's plain code, with no model involved. Setup 
 - It renders with Claude Desktop's own Files pane, by design. There's no viewer here to maintain, so app improvements come for free.
 - Setup compiles a small AppleScript app, `md-reader.app`, into `~/Applications`. You set it as your `.md` default, and all it does is hand the file's path to Claude Desktop. The source is in `handler/`.
 - It uses its own session in your home folder. Close it whenever you like, and opening a file brings it back. Don't chat in it, because it can reach your whole home folder.
+- If opening a file does nothing, run `/md-reader:start` to repair it.
 - macOS only.
 - It relies on app behavior that isn't a public API, so an update could break it.
 

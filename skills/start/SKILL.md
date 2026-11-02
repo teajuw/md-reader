@@ -6,7 +6,9 @@ disable-model-invocation: true
 
 # Start md-reader
 
-Before doing anything else, call `mcp__ccd_turn__wrap_up` and end your turn. Do nothing more until the user replies.
+First run `cat ~/.claude/md-reader/reader 2>/dev/null`. If it prints an ID, call `get_session` for it. If that session exists and isn't archived, run `open "claude://code/continue?session=<id>"`, say `md-reader is already set up.`, and stop. Otherwise run `rm -f ~/.claude/md-reader/reader` and continue.
+
+Next, call `mcp__ccd_turn__wrap_up` and end your turn. Do nothing more until the user replies.
 
 - `recap`: `md-reader needs its own session in your home folder.`
 - `ask`: `Open md-reader in split view?`
@@ -21,7 +23,6 @@ When the user replies `Manual` or `Auto`, continue. If they reply with anything 
 
 1. Call `start_session` with:
    - `initiation`: `user_asked`
-   - `context`: `fresh`
    - `title` and `name`: `md-reader`
    - `cwd`: `~`
    - `use_worktree`: `false`

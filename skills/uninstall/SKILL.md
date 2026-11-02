@@ -27,8 +27,8 @@ If the user replies with anything other than `Uninstall`, stop and do nothing.
 
 If they choose `Uninstall`:
 
-1. Run `cat ~/.claude/md-reader/reader` to get the session ID. If that fails, use `list_sessions` to find a session titled `md-reader` with the user's home folder as its `cwd`. If there isn't one, skip step 2.
-2. Call `close_split` for that session, then `set_pinned` with `pinned: false`, then `archive_session`. Ignore a `close_split` refusal. If `archive_session` is refused, keep going and tell the user to archive the session from the sidebar.
+1. Run `cat ~/.claude/md-reader/reader` to get the session ID. If there isn't one, skip step 2.
+2. Call `set_pinned` for that session with `pinned: false`, then call `archive_session` for it. If `archive_session` is refused, keep going and tell the user to close the `md-reader` pane and archive it from the sidebar.
 3. Run `rm -rf "$HOME/Applications/md-reader.app" "$HOME/.claude/md-reader"`.
 4. Tell the user to finish with these steps:
    - In Finder, choose Get Info on a `.md` file, pick another app under Open With, and click Change All.

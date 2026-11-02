@@ -2,43 +2,49 @@ import type { EngineInterface as Host, Register } from 'claude-code'
 
 const POLL_MS = 1000
 
-const toolText = (result: { content: unknown }) =>
-  (result.content as { text?: string }[]).map(block => block.text ?? '').join('')
+const layoutOf = async <T>($: Host, server: string, tool: string) => {
+  const result = await $.mcp.call(server, tool)
+  const blocks = result.content as { text?: string }[]
 
-const homeFolder = async ($: Host) => {
-  const { stdout } = await $.process.run(['/usr/bin/printenv', 'HOME'])
-
-  return stdout.trim()
+  return JSON.parse(blocks.map(block => block.text ?? '').join('')) as T
 }
 
-// Saves this session's app id, so the handler can bring the Reader forward.
-const saveReaderId = async ($: Host, folder: string) => {
-  const result = await $.mcp.call('ccd_window', 'get_window_layout')
-  const layout = JSON.parse(toolText(result)) as { this_session?: { session_id?: string } }
-  const id = layout.this_session?.session_id
-  if (id) await $.fs.write(`${folder}/reader`, id)
+const sessionId = async ($: Host) => {
+  const layout = await layoutOf<{ this_session?: { session_id?: string } }>(
+    $,
+    'ccd_window',
+    'get_window_layout',
+  )
 
-  return id !== undefined
+  return layout.this_session?.session_id
 }
 
 // `show_pane` does nothing off screen, so the file waits until then.
 const isOnScreen = async ($: Host) => {
-  const result = await $.mcp.call('ccd_view', 'get_layout')
-  const layout = JSON.parse(toolText(result)) as { views?: unknown[] }
+  const layout = await layoutOf<{ views?: unknown[] }>($, 'ccd_view', 'get_layout')
 
   return (layout.views ?? []).length > 0
 }
 
 const watch = ($: Host, folder: string) => {
+  const reader = `${folder}/reader`
   const pending = `${folder}/pending`
+  let id: string | undefined
   let isBusy = false
-  let isSaved = false
 
-  $.clock.every(POLL_MS, async () => {
+  const timer = $.clock.every(POLL_MS, async () => {
     if (isBusy) return
     isBusy = true
     try {
-      isSaved ||= await saveReaderId($, folder)
+      // Only Claude Desktop has this tool, so a terminal session stops here.
+      id ??= await sessionId($).catch(() => {
+        timer.cancel()
+        return undefined
+      })
+      if (!id) return
+
+      if (!(await $.fs.exists(reader))) await $.fs.write(reader, id)
+      if ((await $.fs.read(reader)).trim() !== id) return
       if (!(await $.fs.exists(pending)) || !(await isOnScreen($))) return
 
       const path = (await $.fs.read(pending)).trim()
@@ -55,7 +61,7 @@ const watch = ($: Host, folder: string) => {
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    const home = await homeFolder($)
+    const home = await $.env.get('HOME')
     if ((await $.session.root()) === home) watch($, `${home}/.claude/md-reader`)
 
     return next(e)
