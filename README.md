@@ -40,6 +40,7 @@ Choose **Auto** (or **Manual** to approve each step). Setup is one short Haiku t
 
 - Setup compiles a small AppleScript app, `md-reader.app`, into `~/Applications`, signs it ad hoc with `codesign`, and registers it with Launch Services so Finder lists it under Open With. Its only job is handing paths to Claude Desktop; the source is in `handler/`.
 - Everything md-reader writes lives in `~/Applications/md-reader.app` and `~/.claude/md-reader`. Nothing is sent anywhere: no network, no telemetry.
+- The plugin's hooks module runs only in the `md-reader` session, and only acts on its own folder. Once a second it looks there for the note the app leaves, `_opening <file>`, which holds the file's path. When it finds one it asks Claude Desktop whether the session is on screen (`get_layout`), links the file in with `/bin/ln -f`, removes the note with `/bin/rm`, and opens the link with `show_pane`. While a file is open it compares the original's size and date each second and links it again when they change. Those are the only commands and tools it uses, and none of them send anything out.
 - If the `md-reader` session is in split view, files open beside your work. Otherwise they take over the main pane. Right-click the session in the sidebar → Open in → Split view to set up the split once.
 - If Claude Desktop is closed, the first file takes a while, because the app has to start.
 - If a file doesn't open, run `/md-reader:start`. If nothing happens at all, check that `md-reader` is still the Finder default for `.md` files.

@@ -5,18 +5,14 @@ const NOTE = '_opening '
 
 type Shown = { original: string; path: string; mtimeMs: number; size: number }
 
-const layoutOf = async <T>($: Host, server: string, tool: string) => {
-  const result = await $.mcp.call(server, tool)
+// `show_pane` does nothing off screen, so the file waits until then.
+const isOnScreen = async ($: Host) => {
+  const result = await $.mcp.call('ccd_view', 'get_layout')
   const blocks = result.content as { text?: string }[]
   const text = blocks.map(block => block.text ?? '').join('')
 
   // Off screen, the app puts a note before the JSON.
-  return JSON.parse(text.slice(text.indexOf('{'))) as T
-}
-
-// `show_pane` does nothing off screen, so the file waits until then.
-const isOnScreen = async ($: Host) => {
-  const layout = await layoutOf<{ views?: unknown[] }>($, 'ccd_view', 'get_layout')
+  const layout = JSON.parse(text.slice(text.indexOf('{'))) as { views?: unknown[] }
 
   return (layout.views ?? []).length > 0
 }
