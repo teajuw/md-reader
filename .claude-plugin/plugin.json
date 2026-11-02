@@ -3,5 +3,9 @@
   "version": "0.2.1",
   "description": "Open Markdown files from Finder in Claude Desktop's Files pane, with no model call",
   "author": { "name": "teajuw", "url": "https://github.com/teajuw" },
-  "license": "MIT"
+  "repository": "https://github.com/teajuw/md-reader",
+  "license": "MIT",
+  "icon": "./.claude-plugin/icon.png",
+  "documentationUrl": "https://github.com/teajuw/md-reader#readme",
+  "supportUrl": "https://github.com/teajuw/md-reader/issues"
 }
