@@ -22,13 +22,13 @@ Choose **Manual** or **Auto**, and follow the page it opens.
 
 Double-click any Markdown file.
 
-If the `md-reader` session is in split view, the file opens beside your work and nothing gets interrupted. If it isn't open, the file takes over the main pane.
+The file opens in the `md-reader` session. If that session is in split view, it opens beside your work and nothing gets interrupted; otherwise it takes over the main pane. To get the split, right-click the session in the sidebar and choose Open in → Split view.
 
 Opening files never uses tokens. It's plain code, with no model involved. Setup uses one short Haiku turn.
 
 ## History
 
-Every file you open is hard-linked into `~/md-reader`, the session's folder, so the Files tree lists everything you've read, and clicking an entry opens it again. A hard link is the same file under a second name, so it stays current. When an editor saves by writing a new file, the entry catches up within a few seconds. A file on another disk can't be linked, so it's copied instead.
+Every file you open is hard-linked into `~/md-reader`, the session's folder, so the Files tree lists everything you've read, and clicking an entry opens it again. A hard link is the same file under a second name, so edits show up in both. Some editors save by writing a new file, which leaves the entry on the old one; opening the file again fixes that. Two files with the same name share one entry, the last one opened. Only entries are ever replaced, never your files. A file on another disk can't be linked, so it won't open.
 
 ## Good to know
 
