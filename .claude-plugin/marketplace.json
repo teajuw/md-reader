@@ -1,5 +1,6 @@
 {
   "name": "md-reader",
+  "description": "Open Markdown files from Finder in Claude Desktop's Files pane",
   "owner": { "name": "teajuw" },
   "plugins": [{ "name": "md-reader", "source": "./" }]
 }

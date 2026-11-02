@@ -30,7 +30,8 @@ Choose **Auto** (or **Manual** to approve each step). Setup is one short Haiku t
 
 ## Good to know
 
-- Setup compiles a small AppleScript app, `md-reader.app`, into `~/Applications`. Its only job is handing paths to Claude Desktop; the source is in `handler/`.
+- Setup compiles a small AppleScript app, `md-reader.app`, into `~/Applications`, signs it ad hoc with `codesign`, and registers it with Launch Services so Finder lists it under Open With. Its only job is handing paths to Claude Desktop; the source is in `handler/`.
+- Everything md-reader writes lives in `~/Applications/md-reader.app` and `~/.claude/md-reader`. Nothing is sent anywhere: no network, no telemetry.
 - If the `md-reader` session is in split view, files open beside your work. Otherwise they take over the main pane. Right-click the session in the sidebar → Open in → Split view to set up the split once.
 - If Claude Desktop is closed, the first file takes a while, because the app has to start.
 - macOS only, and it relies on app behavior that isn't a public API, so an update could break it.

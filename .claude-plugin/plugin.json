@@ -1,1 +1,7 @@
-{ "name": "md-reader", "version": "0.2.0", "description": "Open Markdown files from Finder in Claude Desktop's Files pane, with no model call", "license": "MIT" }
+{
+  "name": "md-reader",
+  "version": "0.2.1",
+  "description": "Open Markdown files from Finder in Claude Desktop's Files pane, with no model call",
+  "author": { "name": "teajuw", "url": "https://github.com/teajuw" },
+  "license": "MIT"
+}
