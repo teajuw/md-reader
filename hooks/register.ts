@@ -43,8 +43,7 @@ const watch = ($: Host, folder: string) => {
       })
       if (!id) return
 
-      if (!(await $.fs.exists(reader))) await $.fs.write(reader, id)
-      if ((await $.fs.read(reader)).trim() !== id) return
+      if (!(await $.fs.exists(reader)) || (await $.fs.read(reader)).trim() !== id) return
       if (!(await $.fs.exists(pending)) || !(await isOnScreen($))) return
 
       const path = (await $.fs.read(pending)).trim()
