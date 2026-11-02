@@ -1,6 +1,8 @@
 {
   "name": "md-reader",
+  "displayName": "md-reader",
   "version": "0.2.1",
+  "keywords": ["markdown", "reader", "viewer", "finder", "files", "macos"],
   "description": "Open Markdown files from Finder in Claude Desktop's Files pane, with no model call",
   "author": { "name": "teajuw", "url": "https://github.com/teajuw" },
   "repository": "https://github.com/teajuw/md-reader",
