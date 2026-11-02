@@ -29,12 +29,6 @@ const isOnScreen = async ($: Host) => {
   return (layout.views ?? []).length > 0
 }
 
-const resolvePath = (path: string, home: string, cwd: string) => {
-  if (path.startsWith('~/')) return `${home}${path.slice(1)}`
-
-  return path.startsWith('/') ? path : `${cwd}/${path}`
-}
-
 const watch = ($: Host, folder: string) => {
   const pending = `${folder}/pending`
   let isBusy = false
@@ -61,32 +55,9 @@ const watch = ($: Host, folder: string) => {
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    await $.command.register({
-      name: 'read',
-      description: 'Open your md-reader session, or a file in it',
-    })
     const home = await homeFolder($)
     if ((await $.session.root()) === home) watch($, `${home}/.claude/md-reader`)
 
     return next(e)
-  })
-
-  on('command.run', { command: 'read' }, async ($, e) => {
-    const home = await homeFolder($)
-    const folder = `${home}/.claude/md-reader`
-    if (!(await $.fs.exists(`${folder}/reader`))) {
-      return { text: 'No md-reader session found. Run /md-reader:start.' }
-    }
-
-    const arg = e.args.trim()
-    if (arg !== '') {
-      const path = resolvePath(arg, home, await $.session.cwd())
-      if (!(await $.fs.exists(path))) return { text: `File not found: ${path}` }
-      await $.fs.write(`${folder}/pending`, path)
-    }
-    const id = (await $.fs.read(`${folder}/reader`)).trim()
-    await $.process.run(['/usr/bin/open', `claude://code/continue?session=${id}`])
-
-    return { text: 'Opened md-reader.' }
   })
 }
