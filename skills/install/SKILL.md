@@ -9,8 +9,13 @@ Do these steps in order, without asking for approval.
 
 1. Run `sh "${CLAUDE_PLUGIN_ROOT}/handler/build.sh"`.
 2. Call `set_pinned` with `session_id: self` and `pinned: true`.
-3. Call `get_session` with `session_id: self`, then run `printf %s "<sessionId>" > ~/.claude/md-reader/reader`.
-4. Run `cp "${CLAUDE_PLUGIN_ROOT}/handler/md-reader.md" ~/.claude/md-reader/md-reader.md && printf %s "$HOME/.claude/md-reader/md-reader.md" > "$HOME/.claude/md-reader/_opening md-reader.md"`. The mod opens the page within a few seconds.
-5. Reply with `Setup complete.` and nothing else.
+3. Call `get_session` with `session_id: self`, then run `printf %s "<sessionId>" > ~/.claude/md-reader/_session`.
+4. Reply with exactly this and nothing else:
+
+   ```markdown
+   Setup complete. One step left: in Finder, choose Get Info on a `.md` file, set Open With to `md-reader`, and click Change All.
+
+   Then double-click any Markdown file and it opens here. Every file you open is linked into this folder, so the tree is your history.
+   ```
 
 If a step fails, stop and name the step.

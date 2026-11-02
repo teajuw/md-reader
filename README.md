@@ -20,7 +20,7 @@ Then, in any Code session:
 /md-reader:start
 ```
 
-Choose **Auto** (or **Manual** to approve each step), and follow the page that opens. Setup is one short Haiku turn.
+Choose **Auto** (or **Manual** to approve each step). Setup is one short Haiku turn, and it ends by telling you how to make `md-reader` the default for `.md` files.
 
 ## Remove
 

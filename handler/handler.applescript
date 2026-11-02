@@ -1,7 +1,7 @@
 -- Default app for .md files: hands the file to the md-reader session, then brings it forward.
 on open theFiles
 	set stateDir to (POSIX path of (path to home folder)) & ".claude/md-reader"
-	set readerId to do shell script "cat " & quoted form of (stateDir & "/reader") & " 2>/dev/null || true"
+	set readerId to do shell script "cat " & quoted form of (stateDir & "/_session") & " 2>/dev/null || true"
 	if readerId is "" then
 		display dialog "No md-reader session found. Run /md-reader:start in Claude Code." buttons {"OK"} default button 1 with title "md-reader"
 	else

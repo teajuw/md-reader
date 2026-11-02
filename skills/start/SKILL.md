@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Start md-reader
 
-First run `[ -d ~/Applications/md-reader.app ] && cat ~/.claude/md-reader/reader 2>/dev/null`. If it prints nothing, run `rm -f ~/.claude/md-reader/reader` and continue. If it prints an ID, call `get_session` for it. If that session exists and isn't archived, run `open "claude://code/continue?session=<id>"`, say `md-reader is already set up.`, and stop.
+First run `[ -d ~/Applications/md-reader.app ] && cat ~/.claude/md-reader/_session 2>/dev/null`. If it prints nothing, run `rm -f ~/.claude/md-reader/_session` and continue. If it prints an ID, call `get_session` for it. If that session exists and isn't archived, run `open "claude://code/continue?session=<id>"`, say `md-reader is already set up.`, and stop.
 
 Next, call `mcp__ccd_turn__wrap_up` and end your turn. Do nothing more until the user replies.
 

@@ -27,7 +27,7 @@ If the user replies with anything other than `Uninstall`, stop and do nothing.
 
 If they choose `Uninstall`:
 
-1. Run `cat ~/.claude/md-reader/reader` to get the session ID. If there isn't one, skip step 2.
+1. Run `cat ~/.claude/md-reader/_session` to get the session ID. If there isn't one, skip step 2.
 2. Call `set_pinned` for that session with `pinned: false`, then call `archive_session` for it. If `archive_session` is refused, keep going and tell the user to close the `md-reader` pane and archive it from the sidebar.
 3. Run `rm -rf "$HOME/Applications/md-reader.app" "$HOME/.claude/md-reader"`.
 4. Tell the user to finish with these steps:
